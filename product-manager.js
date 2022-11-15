@@ -12,9 +12,10 @@ class ProductManager {
 
     addProduct(title, description, price, thumbnail, code, stock) {
 
-        const args = [...arguments]
-        console.log(args);
-        if(args.includes(undefined)) return console.log('Todos los campos son obligatorios')
+        // Verificar que ningun argumento venga vacio
+        if(title === undefined || description === undefined || price === undefined || thumbnail === undefined || code === undefined || stock === undefined){
+            return console.log('Todos los campos son obligatorios');
+        }
 
         // Aqui estoy buscando si algun objeto dentro de this.products contiene el code: this.products.find(el => el.code == code)
         // Si hay algun objeto es por que los code coinciden, despues se verifica si es truthy o false
@@ -50,19 +51,21 @@ class ProductManager {
     }
 }
 
+//1: Se creará una instancia de la clase “ProductManager”
 const allProducts = new ProductManager();
 
-// console.log(allProducts.products);
-
-allProducts.addProduct('Guitarra', 'Guitarra Tayor en madera de Roble', 300, 'img', 1234)
-// allProducts.addProduct('Piano', 'Piano Casio 5 octavas', 200, 'img', 4321, 5)
-
+//2: Se llamará “getProducts” recién creada la instancia, debe devolver un arreglo vacío []
 console.log(allProducts.products);
 
-// allProducts.addProduct('Guitarra', 'Guitarra Tayor en madera de Roble', 300, 'img', 1234, 3)
-// allProducts.addProduct('Piano', 'Piano Casio 5 octavas', 200, 'img', 4321, 5)
+//3: Se llamará al método “addProduct”, 
+//4: El objeto debe agregarse satisfactoriamente con un id generado automáticamente SIN REPETIRSE
+allProducts.addProduct('Guitarra', 'Guitarra Tayor en madera de Roble', 300, 'img', 1234, 5)
 
-// console.log('-----------------------');
+//5: Se llamará el método “getProducts” nuevamente, esta vez debe aparecer el producto recién agregado
+console.log(allProducts.products);
 
-// allProducts.getProductById(1)
-// allProducts.getProductById(7)
+//6: Se llamará al método “addProduct” con los mismos campos de arriba, debe arrojar un error porque el código estará repetido.
+allProducts.addProduct('Guitarra', 'Guitarra Tayor en madera de Roble', 300, 'img', 1234, 3)
+
+//7: Se evaluará que getProductById devuelva error si no encuentra el producto o el producto en caso de encontrarlo
+allProducts.getProductById(7)
